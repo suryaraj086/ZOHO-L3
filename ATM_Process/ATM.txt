@@ -1,0 +1,6 @@
+Description	Number	Value
+2000		61	122000
+500		666	333000
+100		66	6600
+ 
+Total amount available in the ATM = 461600

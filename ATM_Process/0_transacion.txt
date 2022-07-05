@@ -1,0 +1,7 @@
+Transaction number	Description	Debit/Credit	Amount	Closing Balance
+
+	1000		Cash Withdrawal	debit		1000	7500
+	1000		Cash Withdrawal	debit		1000	6500
+	1000		Cash Withdrawal	debit		1000	6500
+	1001		Cash Withdrawal	debit		1000	5500
+	1002		Cash Withdrawal	debit		1000	4500
