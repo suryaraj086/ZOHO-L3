@@ -1,0 +1,3 @@
+user/Email      Encryped password    name    mobile    credit
+admin@123.com	1234			admin	987654312	30
+temp@123.com	1345			user	987765544	22

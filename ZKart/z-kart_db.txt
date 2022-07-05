@@ -1,0 +1,2 @@
+category	brand	model	price	stock	discount
+LAPTOP		Acer	aspire	50000	10	3
