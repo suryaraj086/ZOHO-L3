@@ -6,6 +6,16 @@ public class User {
 	private int userId;
 	private String emailId;
 	private long phonenumber;
+	private String password;
+
+	public User(String name, int userId, String emailId, long phonenumber, String password) {
+		super();
+		this.name = name;
+		this.userId = userId;
+		this.emailId = emailId;
+		this.phonenumber = phonenumber;
+		this.password = password;
+	}
 
 	public String getName() {
 		return name;
@@ -15,20 +25,20 @@ public class User {
 		this.name = name;
 	}
 
-	public int getId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setId(int userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
-	public String getEmail() {
+	public String getEmailId() {
 		return emailId;
 	}
 
-	public void setEmail(String email) {
-		this.emailId = email;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 
 	public long getPhonenumber() {
@@ -39,9 +49,12 @@ public class User {
 		this.phonenumber = phonenumber;
 	}
 
-	@Override
-	public String toString() {
-		return "User [name=" + name + ", id=" + userId + ", email=" + emailId + ", phonenumber=" + phonenumber + "]";
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

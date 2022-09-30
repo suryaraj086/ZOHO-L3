@@ -9,6 +9,16 @@ public class Expense {
 	private int tripId;
 	private int expenseId;
 
+	public Expense(int fromUserId, int toUserId, float amount, String description, int tripId, int expenseId) {
+		super();
+		this.fromUserId = fromUserId;
+		this.toUserId = toUserId;
+		this.amount = amount;
+		this.description = description;
+		this.tripId = tripId;
+		this.expenseId = expenseId;
+	}
+
 	public int getExpenseId() {
 		return expenseId;
 	}

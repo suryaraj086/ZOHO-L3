@@ -8,6 +8,9 @@
 <link rel="stylesheet" href="Css/Style.css">
 </head>
 <body>
+<% if (session.getAttribute("userId") == null) {
+	 response.sendRedirect(request.getContextPath() + "/Login.jsp");		 
+} %>
 	<jsp:include page="Menu.jsp"></jsp:include>
 	<form action="ReturnAmount" id="form" method="post">
 		<fieldset>

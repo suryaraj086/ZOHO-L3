@@ -5,7 +5,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Signup</title>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script src="Script/Script.js"></script>
+<script>
+$(document).ready(function() {
+	$("#submit").on('click', function() {
+		var form = $('#form_login');
+		$.ajax({
+			url : 'http://localhost:8080/expensemanagement/LoginController',
+			method : "POST",
+			data : JSON.stringify({
+				first:1,
+				second:2				
+			}),
+			success : function(completeHtmlPage) {
+				alert("Success");
+				$("html").empty();
+				$("html").append(completeHtmlPage);
+			}
+		});
+	});
+});
+</script>
 <style type="text/css">
 #form_login {
 	left: 50%;
@@ -16,8 +40,7 @@
 
 #login_img {
 	height: 100px;
-	width: 100px;
-	position: relative;
+	width: 100px;;
 }
 
 input[type=text], input[type=password], input[type=number] {
@@ -43,21 +66,22 @@ input[type=submit] {
 }
 </style>
 </head>
-<body background="Images/background.jpg">
-	<form id="form_login" action="LoginController" method="post" onsubmit="ValidateEmail()">
+<body background="Images/background.jpg" id="test">
+	<form id="form_login" >
 		<fieldset>
 			<legend>
 				<img src="Images/login.png" id="login_img" /> <br /> <br />
 			</legend>
 			<label>User Name</label><input placeholder="Enter the name"
-				name="name" type="text" required><br /> <br /> <label>Email
-				id</label><input placeholder="Enter the id" name="name" id="email" type="text" required><br />
-			<br /> <label>Phone number</label><input
-				placeholder="Enter the number" name="phonenumber" type="number"
-				required><br /> <br /> <label>Password</label><input
+				name="name" id="name" type="text" required><br /> <br /> <label>Email
+				id</label><input placeholder="Enter the email id" name="email" id="email"
+				type="text" required><br /> <br /> <label>Phone
+				number</label><input placeholder="Enter the number" name="phonenumber"
+				type="number" required><br /> <br /> <label>Password</label><input
 				placeholder="Enter the password" name="password" type="password"
-				required><br /> <input type="submit" name="signup"
-				value="Register">
+				required><br /> <input type="submit" id="submit"
+				name="signup" value="Register"> <input type="hidden"
+				name="page" value="signup">
 		</fieldset>
 	</form>
 </body>

@@ -30,6 +30,9 @@
 </head>
 
 <body>
+<% if (session.getAttribute("userId") == null) {
+	 response.sendRedirect(request.getContextPath() + "/Login.jsp");		 
+} %>
 	<form action="LoginController" method="post">
 		<input type="submit" name="page"
 			class="btn btn-primary btn-lg btn-radius" id="menu"
@@ -41,7 +44,7 @@
 			name="page" class="btn btn-primary btn-lg btn-radius" id="menu"
 			value="Amount spent"> <input type="submit" name="page"
 			class="btn btn-primary btn-lg btn-radius" id="menu"
-			value="Amount owed"> <input type="submit" name="page"
+			value="Return owed amount"> <input type="submit" name="page"
 			class="btn btn-primary btn-lg btn-radius" id="menu"
 			value="Logout">
 	</form>

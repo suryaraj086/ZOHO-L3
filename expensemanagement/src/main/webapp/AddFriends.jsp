@@ -11,45 +11,46 @@
 <script src="Script/Script.js"></script>
 </head>
 <body>
+	<%
+	if (session.getAttribute("userId") == null) {
+		response.sendRedirect(request.getContextPath() + "/Login.jsp");
+	}
+	%>
 	<jsp:include page="Menu.jsp"></jsp:include>
-	<h3>Enter the id to search</h3>
-	<input type="text" id="myInput" onkeyup="myFunction()"
-		placeholder="Type in the id..">
-	<input type="submit" name="addfriends" id="menu"
-		value="Add to friends list">
-	<input type="submit" name="removefriends" id="menu"
-		value="Remove from friends list">
+	<%
+	String s = request.getParameter("message");
+	%>
+	<%
+	if (s != null) {
+		out.print("&ensp;<label style=color:black;><b>*" + s + "</b></label>");
+	}
+	%>
 
-	<table id="customers" style="width: 100%">
-		<tr>
-			<th>Select</th>
-			<th>User Id</th>
-			<th>User Name</th>
-		</tr>
-		<tr>
-			<td><input type="checkbox" name="name" value="new" />&nbsp;</td>
-			<td>1</td>
-			<td>Example1</td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" name="name" value="new" />&nbsp;</td>
-			<td>2</td>
-			<td>Example2</td>
-		</tr>
+	<form action="LoginController" method="post">
+		<h3>Enter the id to search</h3>
+		<input type="text" id="myInput" onkeyup="myFunction()"
+			placeholder="Type in the id.."> <input type="submit"
+			name="page" id="menu" value="Add to friends list"> <input
+			type="submit" name="removefriends" id="menu"
+			value="Remove from friends list">
 
-		<%-- 		<c:forEach items="${LoginController}" var="current"> --%>
-		<%-- 			<c:forEach items="${current.value}" var="current1"> --%>
-		<!-- 				<tr> -->
-		<!-- 					<td><input type="checkbox" name="name" />&nbsp;</td> -->
-		<%-- 					<td><c:out value="${current.key}" /></td> --%>
-		<%-- 					<td><c:out value="${current1.key}" /></td> --%>
-		<%-- 					<td><c:out value="${current1.value.getName()}" /></td> --%>
-		<%-- 					<td><c:out value="${current1.value.getBranch()}" /></td> --%>
-		<%-- 					<td><c:out value="${current1.value.getBalance()}" /></td> --%>
-		<%-- 					<td><c:out value="${current1.value.isStatus()}" /></td> --%>
-		<!-- 				</tr> -->
-		<%-- 			</c:forEach> --%>
-		<%-- 		</c:forEach> --%>
-	</table>
+		<table id="customers" style="width: 100%">
+			<tr>
+				<th>Select</th>
+				<th>User Id</th>
+				<th>User Name</th>
+				<th>Phone number</th>
+
+				<c:forEach items="${LoginController}" var="current">
+					<tr>
+						<td><input type="checkbox" name="friendslist"
+							value="${current.key}" />&nbsp;</td>
+						<td><c:out value="${current.key}" /></td>
+						<td><c:out value="${current.value.getName()}" /></td>
+						<td><c:out value="${current.value.getPhonenumber()}" /></td>
+					</tr>
+				</c:forEach>
+		</table>
+	</form>
 </body>
 </html>

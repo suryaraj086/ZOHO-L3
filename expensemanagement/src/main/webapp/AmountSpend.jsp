@@ -8,6 +8,9 @@
 <title>Amount spend</title>
 </head>
 <body>
+<% if (session.getAttribute("userId") == null) {
+	 response.sendRedirect(request.getContextPath() + "/Login.jsp");		 
+} %>
 	<jsp:include page="Menu.jsp"></jsp:include>
 	<table id="customers" style="width: 100%">
 		<tr>

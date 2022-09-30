@@ -1,16 +1,21 @@
 package expensemanagement.pojo;
 
-import java.util.List;
 
 public class Trip {
 
 	private int tripId;
 	private String tripName;
-	private List<Integer> members;
 	private long fromDate;
 	private long toDate;
-	
-	
+
+	public Trip(int tripId, String tripName, long fromDate, long toDate) {
+		super();
+		this.tripId = tripId;
+		this.tripName = tripName;
+		this.fromDate = fromDate;
+		this.toDate = toDate;
+	}
+
 	public int getTripId() {
 		return tripId;
 	}
@@ -25,14 +30,6 @@ public class Trip {
 
 	public void setTripName(String tripName) {
 		this.tripName = tripName;
-	}
-
-	public List<Integer> getMembers() {
-		return members;
-	}
-
-	public void setMembers(List<Integer> members) {
-		this.members = members;
 	}
 
 	public long getFromDate() {
@@ -53,8 +50,8 @@ public class Trip {
 
 	@Override
 	public String toString() {
-		return "Trip [tripId=" + tripId + ", tripName=" + tripName + ", members=" + members + ", fromDate=" + fromDate
-				+ ", toDate=" + toDate + "]";
+		return "Trip [tripId=" + tripId + ", tripName=" + tripName + ", fromDate=" + fromDate + ", toDate=" + toDate
+				+ "]";
 	}
 
 }

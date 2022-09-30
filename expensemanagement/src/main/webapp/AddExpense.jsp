@@ -9,6 +9,9 @@
 <script src="Script/Script.js"></script>
 </head>
 <body>
+<% if (session.getAttribute("userId") == null) {
+	 response.sendRedirect(request.getContextPath() + "/Login.jsp");		 
+} %>
 	<jsp:include page="Menu.jsp"></jsp:include>
 	<form action="AddExpense" id="form" method="post">
 		<fieldset>
