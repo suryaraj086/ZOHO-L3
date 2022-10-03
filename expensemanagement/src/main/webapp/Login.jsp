@@ -12,17 +12,19 @@
 <script>
 	$(document).ready(function() {
 		$("#submit").on('click', function() {
-		
-			$.ajax({
+				$.ajax({
 				url : 'http://localhost:8080/expensemanagement/LoginController',
 				method : "POST",
-				data: JSON.stringify(form),
+				data : JSON.stringify({
+					id:$('#id').val(),
+					password:$('#password').val()
+				}),
 				contentType: "application/json; charset=utf-8",
 				success : function(completeHtmlPage) {
-				    alert("Success");
+					alert(completeHtmlPage);
 				    $("html").empty();
 				    $("html").append(completeHtmlPage);
-
+// 					window.location.replace(completeHtmlPage);
 				}
 			});
 		});
@@ -40,7 +42,7 @@
 <body background="Images/background.jpg">
  <%String s=request.getParameter("message");%>
 <% if(s!=null){out.print("&ensp;<label style=color:white;><b>*"+s+"</b></label>");}%>
-	<form id="form_login" action="LoginController" id="login" method="post">
+	<form id="form_login" id="login" method="post">
 		<fieldset>
 			<legend>
 				<img src="Images/login.png" id="login_img" /> <br /> <br />

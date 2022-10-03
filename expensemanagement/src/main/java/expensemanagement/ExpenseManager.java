@@ -1,8 +1,6 @@
 package expensemanagement;
 
 import expensemanagement.pojo.*;
-
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,13 +19,13 @@ public class ExpenseManager {
 	private int userId;
 	private int expenseId;
 	private int tripId;
-	
-	Connector db=new DBLayer();
+
+	Connector db = new DBLayer();
+
 	public ExpenseManager() throws Exception {
-		userMap=db.retrieveUser();
-		userId=db.retrieveUserId();
+		userMap = db.retrieveUser();
+		userId = db.retrieveUserId();
 	}
-	
 
 	public int generateUserId() {
 		return ++userId;
@@ -108,7 +106,6 @@ public class ExpenseManager {
 			expenseList = new ArrayList<>();
 		}
 		expenseList.add(expense);
-		expense.setExpenseId(expenseId);
 		expenseMap.put(expense.getFromUserId(), expenseList);
 
 		List<Expense> expenseLists = expenseMap.get(expense.getToUserId());
@@ -124,21 +121,21 @@ public class ExpenseManager {
 	}
 
 	public String payAllExpense(int userId) {
-		
+
 		List<Expense> exp = expenseMap.get(userId);
-		
+
 		for (int i = 0; i < exp.size(); i++) {
-			
+
 			Expense obj = exp.get(i);
-			
+
 			if (obj.getAmount() < 0) {
-				
+
 				List<Expense> toUser = expenseMap.get(obj.getToUserId());
-				
+
 				for (int j = 0; j < toUser.size(); j++) {
-					
+
 					if (toUser.get(i).getToUserId() == obj.getFromUserId()) {
-						
+
 						toUser.remove(i);
 					}
 				}
@@ -149,27 +146,25 @@ public class ExpenseManager {
 	}
 
 	public void payIndividualExpense(int fromUser, int toUser, int amount, int expenseId) {
-		
+
 		List<Expense> exp = expenseMap.get(fromUser);
-		
+
 		for (int i = 0; i < exp.size(); i++) {
-			
+
 			Expense obj = exp.get(i);
-			
+
 			if (obj.getAmount() < 0 && obj.getToUserId() == toUser && obj.getExpenseId() == expenseId) {
-				
+
 				obj.setAmount(obj.getAmount() + amount);
-				
+
 				List<Expense> list = expenseMap.get(obj.getToUserId());
-				
+
 				for (int j = 0; j < list.size(); j++) {
-					
+
 					Expense expens = list.get(i);
-					
-					if (expens.getAmount() > 0 && obj.getToUserId() == fromUser
-							
-							&& obj.getExpenseId() == expenseId + 1) {
-						
+
+					if (expens.getAmount() > 0 && obj.getExpenseId() == expenseId + 1) {
+
 						expens.setAmount(expens.getAmount() - amount);
 					}
 				}

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import exception.CustomException;
+import expensemanagement.pojo.Expense;
 import expensemanagement.pojo.Trip;
 import expensemanagement.pojo.User;
 
@@ -34,7 +35,7 @@ public interface Connector {
 
 	public Map<Integer, List<Integer>> retrieveUserFriends() throws Exception;
 
-	public Map<Integer, List<Integer>> retrieveUserExpense() throws CustomException;
+	public Map<Integer, List<Expense>> retrieveUserExpense() throws CustomException;
 
 	public int retrieveUserId() throws SQLException, CustomException;
 

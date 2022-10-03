@@ -3,8 +3,12 @@ package servlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Handler;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -15,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import exception.CustomException;
 import expensemanagement.*;
+import expensemanagement.pojo.Trip;
 import expensemanagement.pojo.User;
 import com.google.gson.*;
 import com.google.*;
@@ -37,24 +42,34 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String id = request.getParameter("id");
+		JSONObject obj = null;
+		try {
+			obj = getJson(request);
+		} catch (IOException | org.json.simple.parser.ParseException e) {
+			e.printStackTrace();
+		}
+
+		String id = (String) obj.get("id");
 		int uId = 0;
-		String password = request.getParameter("password");
-		String page = request.getParameter("page");
+		String password = (String) obj.get("password");
+		String page = (String) obj.get("page");
 		Manager manager = (Manager) request.getServletContext().getAttribute("logic");
 		Map<Integer, User> userMap = manager.getUserMap();
 		request.setAttribute("LoginController", userMap);
-		System.out.println(request.getParameter("first"));
+		System.out.println(obj.get("page"));
+		System.out.println(obj.get("id"));
+		System.out.println(obj.get("password"));
 		try {
 
 			if (id != null && password != null && manager.login(Integer.parseInt(id), password)) {
 				uId = Integer.parseInt(id);
 				HttpSession session = request.getSession();
 				session.setAttribute("userId", uId);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("AddFriends.jsp");
-				requestDispatcher.forward(request, response);
+				response.getWriter().write("Addfriends.jsp");
+				response.getWriter().write(new Gson().toJson("Addfriends.jsp"));
+//				response.sendRedirect("Addfriends.jsp");
 			}
-		} catch (CustomException | ServletException | IOException e) {
+		} catch (CustomException | IOException e) {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("Login.jsp?message=" + e.getMessage());
 			requestDispatcher.forward(request, response);
 		}
@@ -74,8 +89,25 @@ public class LoginController extends HttpServlet {
 				}
 			} else if (page.equals("added trip")) {
 				int tripId = manager.generateTripId();
-				String tripName = request.getParameter(page);
+				String tripName = (String) obj.get("tripname");
+				String startDate = (String) obj.get("startdate");
+				String endDate = (String) obj.get("enddate");
+				String[] arr = (String[]) obj.get("friendslist");
 
+				SimpleDateFormat f = new SimpleDateFormat("yyyy-mm-dd");
+				try {
+					Date d = f.parse(startDate);
+					Date d1 = f.parse(endDate);
+					long frommilliseconds = d.getTime();
+					long tomilliseconds = d1.getTime();
+					HttpSession session = request.getSession();
+					int iden = (int) session.getAttribute("userId");
+					Trip trip = new Trip(tripId, tripName, frommilliseconds, tomilliseconds);
+					manager.addNewTrip(trip);
+					addNewTripMembers(arr, iden, tripId, manager);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			} else if (page.equals("Add Friends")) {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("AddFriends.jsp");
 				requestDispatcher.forward(request, response);
@@ -97,10 +129,10 @@ public class LoginController extends HttpServlet {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("Login.jsp");
 				requestDispatcher.forward(request, response);
 			} else if (page.equals("signup")) {
-				String name = request.getParameter("name");
-				String email = request.getParameter("email");
-				String phone = request.getParameter("phonenumber");
-				String pass = request.getParameter("password");
+				String name = (String) obj.get("name");
+				String email = (String) obj.get("email");
+				String phone = (String) obj.get("phonenumber");
+				String pass = (String) obj.get("password");
 				int userId = manager.generateUserId();
 				try {
 					User user = new User(name, userId, email, Long.parseLong(phone), pass);
@@ -122,12 +154,20 @@ public class LoginController extends HttpServlet {
 		}
 	}
 
+	public void addNewTripMembers(String[] arr, int id, int tripId, Manager manager)
+			throws NumberFormatException, Exception {
+		for (int i = 0; i < arr.length; i++) {
+			manager.addMemberToTrip(id, Integer.parseInt(arr[i]), tripId);
+		}
+	}
+
 	private JSONObject getJson(HttpServletRequest request) throws IOException, org.json.simple.parser.ParseException {
 		BufferedReader readerObj = request.getReader();
 		StringBuilder builderObj = new StringBuilder();
 		String line = null;
 		while ((line = readerObj.readLine()) != null) {
 			builderObj.append(line);
+			System.out.println(line);
 		}
 		return (JSONObject) new JSONParser().parse(builderObj.toString());
 	}

@@ -260,29 +260,32 @@ public class DBLayer implements Connector {
 		}
 		return friendsMap;
 	}
-	
-	
-	
-	public Map<Integer, List<Integer>> retrieveUserExpense() throws CustomException {
-		int tripId = 0;
-		Map<Integer, List<Integer>> friendsMap = new HashMap<>();
+
+	public Map<Integer, List<Expense>> retrieveUserExpense() throws CustomException {
+		int userId = 0;
+		Map<Integer, List<Expense>> expenseMap = new HashMap<>();
 		try (Statement st = ConnectionUtility.CONNECTION.getConnection().createStatement()) {
 			String query = "SELECT * FROM tripexpense";
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				tripId = rs.getInt("tripid");
-				int memberId = rs.getInt("memberid");
-				List<Integer> list = friendsMap.get(tripId);
+				userId = rs.getInt("fromid");
+				int toUserID=rs.getInt("toid");
+				int expenseId = rs.getInt("expenseid");
+				int tripId = rs.getInt("tripid");
+				float amount=rs.getFloat("amount");
+				List<Expense> list = expenseMap.get(userId);
 				if (list == null) {
 					list = new ArrayList<>();
 				}
-				list.add(memberId);
-				friendsMap.put(tripId, list);
+				String description=rs.getString("description");
+				Expense exp=new Expense(userId, toUserID, amount, description, tripId, expenseId);
+				list.add(exp);
+				expenseMap.put(tripId, list);
 			}
 		} catch (Exception e) {
 			throw new CustomException("SQL Error");
 		}
-		return friendsMap;
+		return expenseMap;
 	}
 	
 	
@@ -298,31 +301,29 @@ public class DBLayer implements Connector {
 		}
 		return userId;
 	}
-	
-	
+
 	public int retrieveTripId() throws SQLException, CustomException {
 		int tripId = 0;
 		try (Statement st = ConnectionUtility.CONNECTION.getConnection().createStatement()) {
 			String query = "SELECT * FROM trip ORDER BY tripid DESC LIMIT 1;";
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				tripId = rs.getInt("userid");
+				tripId = rs.getInt("tripid");
 			}
 		}
 		return tripId;
 	}
-	
+
 	public int retrieveExpenseId() throws SQLException, CustomException {
-		int userId = 0;
+		int expenseId = 0;
 		try (Statement st = ConnectionUtility.CONNECTION.getConnection().createStatement()) {
 			String query = "SELECT * FROM tripexpense ORDER BY expenseid DESC LIMIT 1;";
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				userId = rs.getInt("userid");
+				expenseId = rs.getInt("expenseid");
 			}
 		}
-		return userId;
+		return expenseId;
 	}
-	
-	
+
 }

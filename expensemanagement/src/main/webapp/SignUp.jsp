@@ -13,16 +13,17 @@
 <script>
 $(document).ready(function() {
 	$("#submit").on('click', function() {
-		var form = $('#form_login');
 		$.ajax({
 			url : 'http://localhost:8080/expensemanagement/LoginController',
 			method : "POST",
 			data : JSON.stringify({
-				first:1,
-				second:2				
+				name:$('#name').val(),
+				email:$('#email').val(),
+				phonenumber:$('#phone').val(),
+				password:$('#password').val()
 			}),
+	        contentType: "application/json",
 			success : function(completeHtmlPage) {
-				alert("Success");
 				$("html").empty();
 				$("html").append(completeHtmlPage);
 			}
@@ -67,7 +68,7 @@ input[type=submit] {
 </style>
 </head>
 <body background="Images/background.jpg" id="test">
-	<form id="form_login" >
+	<form id="form_login" method="post">
 		<fieldset>
 			<legend>
 				<img src="Images/login.png" id="login_img" /> <br /> <br />
@@ -77,11 +78,11 @@ input[type=submit] {
 				id</label><input placeholder="Enter the email id" name="email" id="email"
 				type="text" required><br /> <br /> <label>Phone
 				number</label><input placeholder="Enter the number" name="phonenumber"
-				type="number" required><br /> <br /> <label>Password</label><input
-				placeholder="Enter the password" name="password" type="password"
-				required><br /> <input type="submit" id="submit"
-				name="signup" value="Register"> <input type="hidden"
-				name="page" value="signup">
+				type="number" id="phone" required><br /> <br /> <label>Password</label><input
+				placeholder="Enter the password" id="password" name="password"
+				type="password" required><br /> <input type="submit"
+				id="submit" name="signup" value="Register"> <input
+				type="hidden" name="page" value="signup">
 		</fieldset>
 	</form>
 </body>

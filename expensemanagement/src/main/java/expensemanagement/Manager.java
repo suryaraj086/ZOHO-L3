@@ -15,7 +15,6 @@ public class Manager {
 	public Manager() throws Exception {
 		db = new DBLayer();
 		exp = new ExpenseManager();
-
 	}
 
 	public int generateUserId() {

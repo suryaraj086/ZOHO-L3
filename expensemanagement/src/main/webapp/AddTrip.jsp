@@ -9,6 +9,32 @@
 <title>Add new trip</title>
 <link rel="stylesheet" type="text/css" href="Css/Style.css">
 <script src="Script/Script.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+<script>
+	$(document).ready(function() {
+		$("#submit").on('click', function() {
+				$.ajax({
+				url : 'http://localhost:8080/expensemanagement/LoginController',
+				method : "POST",
+				data : JSON.stringify({
+					tripname:$('#tripname').val(),
+					startdate:$('#startdate').val(),
+					enddate:$('#enddate').val(),
+					page:"added trip",
+					checkbox: $('#checkbox').val()
+				}),
+				contentType: "application/json; charset=utf-8",
+				success : function(completeHtmlPage) {
+					alert(completeHtmlPage);
+				    $("html").empty();
+				    $("html").append(completeHtmlPage);
+				}
+			});
+		});
+	});
+</script>
 </head>
 <body>
 	<%
@@ -17,10 +43,10 @@
 	}
 	%>
 	<jsp:include page="Menu.jsp"></jsp:include>
-	<form id="form" action="LoginController" method="post">
+	<form id="form"  method="post">
 		<fieldset>
 			<label>Trip name</label><input placeholder="Enter the trip name"
-				name="id" type="text" required><br /> <br /> <label>Start
+				name="tripname" id="tripname" type="text" required><br /> <br /> <label>Start
 				date</label> <input type="date" id="startdate" title="Type in a name"><br />
 			<br /> <label>End date</label> <input type="date" id="enddate"
 				title="Type in a name"> <br /> <br /> <label>select
@@ -35,14 +61,14 @@
 
 				<c:forEach items="${friendsList}" var="current">
 					<tr>
-						<td><input type="checkbox" name="tripfriends"
+						<td><input type="checkbox"  id= "checkbox" name="tripfriends"
 							value="${current}" />&nbsp;</td>
 						<td><c:out value="${current}" /></td>
 					</tr>
 				</c:forEach>
 			</table>
 			<input type="hidden" name="page" value="added trip"> <input
-				type="submit" value="Submit">
+				type="submit" id="submit" value="Submit">
 		</fieldset>
 	</form>
 </body>
