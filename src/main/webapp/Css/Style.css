@@ -1,0 +1,216 @@
+@charset "UTF-8";
+
+input[type=submit], a {
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 20px;
+	box-sizing: border-box;
+	background: #9999ff;
+	color: white;
+	cursor: pointer;
+	transition-duration: 0.4s;
+	text-decoration: none;
+	font-family: sans-serif;
+	font-size: 100%;
+	width: 100%;
+	text-align: center;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+input[type=submit]::hover, a::hover {
+	color: black;
+}
+
+#customers ,table{
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	margin-top: 10px;
+	border-radius: 25px;
+}
+
+fieldset {
+	border-radius: 25px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+#customers td, #customers th ,.table td,.table th{
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#customers th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #424248;
+	color: white;
+	border-radius: 7px;
+}
+
+input[type=text], input[type=password], input[type=number], input[type=email],
+	input[type=date] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 25px;
+	box-sizing: border-box;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+input {
+    position: relative;
+    
+}
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        height: auto;
+        color: transparent;
+        background: transparent;
+    }
+
+    input[type="date"]::-webkit-inner-spin-button {
+        z-index: 1;
+    }
+
+    input[type="date"]::-webkit-clear-button {
+        z-index: 1;
+    }
+
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button
+	{
+	-webkit-appearance: none;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+#form_login {
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%);
+}
+
+#userform {
+	border: 2px solid #424248;
+	border-radius: 20px;
+}
+
+#form {
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%);
+}
+
+.alert {
+	padding: 20px;
+	background-color: #e9989fad;
+	border-radius: 25px;
+	color: black;
+	transition: all 0.5s ease;
+	position: absolute;
+	left: 42%;
+	align-content: center;
+	height: 6px;
+	top: 8%;
+	box-sizing: border-box;
+}
+
+.alert_login {
+	padding: 20px;
+	background-color: #e9989fad;
+	border-radius: 25px;
+	position: absolute;
+	color: black;
+	left: 40%;
+	top: 20%;
+	color: black;
+	top: 20%;
+}
+
+.closebtn {
+	margin-left: 15px;
+	color: white;
+	font-weight: bold;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.friendoption {
+	background-color: #9999ff;
+	border: none;
+	border-radius: 20px;
+	color: white;
+	height: 45px;
+	width: 150px;
+}
+
+html * {
+	font-size: 1em !important;
+	accent-color: pink;
+	font-family: sans-serif !important;
+}
+
+.dark-mode {
+	background-color: #4f4b4b4d;
+	color: black;
+}
+
+h3 {
+	text-align: center;
+	background-color: lavender;
+}
+
+h1 {
+	text-align: center;
+	background-color: lavender;
+	font-size: 18px !important;
+}
+
+ body {
+            animation: fadeInAnimation ease 0.3s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+        @keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+            }
+            25%{
+                opacity: 0.25;
+            }
+            
+            50%{
+                opacity: 0.5;
+            }
+            75%{
+                opacity: 0.75;
+            }
+            
+            100% {
+                opacity: 1;
+            }
+        }
+
+.closebtn:hover {
+	color: black;
+}
